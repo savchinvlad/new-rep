@@ -6,7 +6,7 @@ import LoadingBox from "../components/LoadingBox";
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 
-function HomeScreen() {
+export default function HomeScreen() {
 const dispatch = useDispatch();
 const productList = useSelector( (state) => state.productList );
 const { loading, error, products } = productList;
@@ -29,7 +29,5 @@ const { loading, error, products } = productList;
       </div>
        )}
    </div>
-  )
+  );
 }
-
-export default HomeScreen
