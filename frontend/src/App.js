@@ -17,10 +17,11 @@ function App() {
           <Link className="brand" to="/">KLD bead</Link>
         </div>
         <div>
-          <Link to="/cart">Cart
-          {cartItems.lenght > 0 && (
-            <span className="badge">{cartItems.lenght}</span>
-          )}
+          <Link to="/cart"> 
+              Cart
+              {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
           </Link>
           <Link to="/signin">Sign In</Link>
         </div>
