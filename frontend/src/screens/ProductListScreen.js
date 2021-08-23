@@ -1,22 +1,59 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
+import { createProduct, deleteProduct, listProducts } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants';
 
 export default function ProductListScreen(props) {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
+
   const dispatch = useDispatch();
   useEffect(() => {
+    if (successCreate) {
+      dispatch({ type: PRODUCT_CREATE_RESET });
+      props.history.push(`/product/${createdProduct._id}/edit`);
+    }
+    if (successDelete) {
+      dispatch({ type: PRODUCT_DELETE_RESET });
+    }
     dispatch(listProducts());
-  }, [dispatch]);
-  const deleteHandler = () => {
-    /// TODO: dispatch delete action
+  }, [createdProduct, dispatch, props.history, successCreate, successDelete]);
+
+  const deleteHandler = (product) => {
+    if (window.confirm('Are you sure to delete?')) {
+      dispatch(deleteProduct(product._id));
+    }
+  };
+  const createHandler = () => {
+    dispatch(createProduct());
   };
   return (
     <div>
-      <h1>Products</h1>
+      <div className="row">
+        <h1>Products</h1>
+        <button type="button" className="primary" onClick={createHandler}>
+          Create Product
+        </button>
+      </div>
+
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
+
+      {loadingCreate && <LoadingBox></LoadingBox>}
+      {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -29,7 +66,7 @@ export default function ProductListScreen(props) {
               <th>NAME</th>
               <th>PRICE</th>
               <th>CATEGORY</th>
-              <th>BRAND</th>
+              <th>TYPE</th>
               <th>ACTIONS</th>
             </tr>
           </thead>
@@ -40,22 +77,15 @@ export default function ProductListScreen(props) {
                 <td>{product.name}</td>
                 <td>{product.price}</td>
                 <td>{product.category}</td>
-                <td>{product.brand}</td>
+                <td>{product.type}</td>
                 <td>
                   <button
                     type="button"
                     className="small"
-                    onClick={() =>
-                      props.history.push(`/product/${product._id}/edit`)
-                    }
-                  >
+                    onClick={() => props.history.push(`/product/${product._id}/edit`)}>
                     Edit
                   </button>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => deleteHandler(product)}
-                  >
+                  <button type="button" className="small" onClick={() => deleteHandler(product)}>
                     Delete
                   </button>
                 </td>
