@@ -15,6 +15,9 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_SUCCESS,
+  PRODUCT_TOPPRODUCTS_LIST_REQUEST,
+  PRODUCT_TOPPRODUCTS_LIST_SUCCESS,
+  PRODUCT_TOPPRODUCTS_LIST_FAIL,
 } from '../constants/productConstants';
 
 export const listProducts = () => async (dispatch) => {
@@ -95,5 +98,17 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
     const message =
       error.response && error.response.data.message ? error.response.data.message : error.message;
     dispatch({ type: PRODUCT_DELETE_FAIL, payload: message });
+  }
+};
+
+export const listTopProducts = () => async (dispatch) => {
+  dispatch({ type: PRODUCT_TOPPRODUCTS_LIST_REQUEST });
+  try {
+    const { data } = await Axios.get('/api/products/top-products');
+    dispatch({ type: PRODUCT_TOPPRODUCTS_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message ? error.response.data.message : error.message;
+    dispatch({ type: PRODUCT_TOPPRODUCTS_LIST_FAIL, payload: message });
   }
 };

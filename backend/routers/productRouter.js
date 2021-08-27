@@ -7,6 +7,14 @@ import { isAdmin, isAuth } from '../utils.js';
 const productRouter = express.Router();
 
 productRouter.get(
+  '/top-products',
+  expressAsyncHandler(async (req, res) => {
+    const topProducts = await Product.find({}).sort({ 'products.rating': -1 }).limit(3);
+    res.send(topProducts);
+  }),
+);
+
+productRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
     const products = await Product.find({});

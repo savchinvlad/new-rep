@@ -17,6 +17,9 @@ const {
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_RESET,
+  PRODUCT_TOPPRODUCTS_LIST_REQUEST,
+  PRODUCT_TOPPRODUCTS_LIST_SUCCESS,
+  PRODUCT_TOPPRODUCTS_LIST_FAIL,
 } = require('../constants/productConstants');
 
 export const productListReducer = (state = { loading: true, products: [] }, action) => {
@@ -82,6 +85,19 @@ export const productDeleteReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_DELETE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const topProductListReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case PRODUCT_TOPPRODUCTS_LIST_REQUEST:
+      return { loading: true };
+    case PRODUCT_TOPPRODUCTS_LIST_SUCCESS:
+      return { loading: false, topProducts: action.payload };
+    case PRODUCT_TOPPRODUCTS_LIST_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
