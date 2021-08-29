@@ -16,11 +16,7 @@ export default function HomeScreen() {
   const { loading, error, products } = productList;
 
   const topProductList = useSelector((state) => state.topProductList);
-  const {
-    loading: loadingProducts,
-    error: errorProducts,
-    topProducts: topProducts,
-  } = topProductList;
+  const { loading: loadingProducts, error: errorProducts, topProducts: product } = topProductList;
 
   useEffect(() => {
     dispatch(listProducts());
@@ -35,9 +31,9 @@ export default function HomeScreen() {
         <MessageBox variant="danger">{errorProducts}</MessageBox>
       ) : (
         <>
-          {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
+          {product.length === 0 && <MessageBox>No Product Found</MessageBox>}
           <Carousel showArrows autoPlay showThumbs={false}>
-            {products.map((product) => (
+            {product.map((product) => (
               <div key={product._id}>
                 <Link to={`/product/${product._id}`}>
                   <img src={product.image} alt={product.name} />
