@@ -30,7 +30,7 @@ const data = {
       price: 7200,
       countInStock: 10,
       category: 'People',
-      rating: 3.5,
+      rating: 2.5,
       type: 'Набор для вышивки бисером',
       numReviews: 10,
       description: 'Богиня Селена – это олицетворение Луны как невесты и любовницы.',
