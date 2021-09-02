@@ -21,7 +21,7 @@ productRouter.get(
     const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {};
     const products = await Product.find({
       ...nameFilter,
-    }).populate('products', 'products.name products.image');
+    }).populate('product', 'product.name product.image');
     res.send(products);
   }),
 );

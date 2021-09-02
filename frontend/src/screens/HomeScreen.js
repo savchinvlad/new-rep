@@ -19,7 +19,7 @@ export default function HomeScreen() {
   const { loading: loadingProducts, error: errorProducts, topProducts: product } = topProductList;
 
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(listProducts({}));
     dispatch(listTopProducts());
   }, [dispatch]);
   return (

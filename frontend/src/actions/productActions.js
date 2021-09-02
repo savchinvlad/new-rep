@@ -27,7 +27,7 @@ export const listProducts =
       type: PRODUCT_LIST_REQUEST,
     });
     try {
-      const { data } = await Axios.get(`/api/products?&name=${name}`);
+      const { data } = await Axios.get(`/api/products?name=${name}`);
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
