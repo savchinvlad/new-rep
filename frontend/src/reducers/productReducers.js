@@ -20,6 +20,9 @@ const {
   PRODUCT_TOPPRODUCTS_LIST_REQUEST,
   PRODUCT_TOPPRODUCTS_LIST_SUCCESS,
   PRODUCT_TOPPRODUCTS_LIST_FAIL,
+  PRODUCT_CATEGORY_LIST_REQUEST,
+  PRODUCT_CATEGORY_LIST_SUCCESS,
+  PRODUCT_CATEGORY_LIST_FAIL,
 } = require('../constants/productConstants');
 
 export const productListReducer = (state = { loading: true, products: [] }, action) => {
@@ -29,6 +32,19 @@ export const productListReducer = (state = { loading: true, products: [] }, acti
     case PRODUCT_LIST_SUCCESS:
       return { loading: false, products: action.payload };
     case PRODUCT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const productCategoryListReducer = (state = { loading: true, products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_CATEGORY_LIST_REQUEST:
+      return { loading: true };
+    case PRODUCT_CATEGORY_LIST_SUCCESS:
+      return { loading: false, categories: action.payload };
+    case PRODUCT_CATEGORY_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
