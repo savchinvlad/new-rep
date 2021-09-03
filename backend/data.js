@@ -25,17 +25,6 @@ const data = {
   ],
   products: [
     {
-      image: 'https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRt5KRJXezCzqTgYG1G7vAVw',
-      name: 'Богиня Селена',
-      price: 7200,
-      countInStock: 10,
-      category: 'People',
-      rating: 2.5,
-      type: 'Набор для вышивки бисером',
-      numReviews: 10,
-      description: 'Богиня Селена – это олицетворение Луны как невесты и любовницы.',
-    },
-    {
       image: 'https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxREGGpFMqprc_Guw8YtIgJKw',
       name: 'Лунная фантазия',
       price: 6900,
@@ -68,6 +57,17 @@ const data = {
       type: 'Игла для вышивки бисером',
       numReviews: 8,
       description: 'Лучший выбоор для вышивки бисером',
+    },
+    {
+      image: 'https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRt5KRJXezCzqTgYG1G7vAVw',
+      name: 'Богиня Селена',
+      price: 7200,
+      countInStock: 10,
+      category: 'People',
+      rating: 2.5,
+      type: 'Набор для вышивки бисером',
+      numReviews: 10,
+      description: 'Богиня Селена – это олицетворение Луны как невесты и любовницы.',
     },
     {
       image: 'https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRu7KHvMMQ8x4o1zwxFy7ZvA',
