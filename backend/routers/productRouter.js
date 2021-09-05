@@ -7,16 +7,10 @@ import { isAdmin, isAuth } from '../utils.js';
 const productRouter = express.Router();
 
 productRouter.get(
-  '/top-products',
-  expressAsyncHandler(async (req, res) => {
-    const topProducts = await Product.find({}).sort({ 'products.rating': -1 }).limit(3);
-    res.send(topProducts);
-  }),
-);
-
-productRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
+    const pageSize = 3;
+    const page = Number(req.query.pageNumber) || 1;
     const name = req.query.name || '';
     const category = req.query.category || '';
     const order = req.query.order || '';
@@ -38,15 +32,30 @@ productRouter.get(
         ? { rating: -1 }
         : { _id: -1 };
 
+    const count = await Product.count({
+      ...nameFilter,
+      ...categoryFilter,
+      ...priceFilter,
+      ...ratingFilter,
+    });
     const products = await Product.find({
       ...nameFilter,
       ...categoryFilter,
       ...priceFilter,
       ...ratingFilter,
     })
-      .populate('product', 'product.name product.image')
-      .sort(sortOrder);
-    res.send(products);
+      .sort(sortOrder)
+      .skip(pageSize * (page - 1))
+      .limit(pageSize);
+    res.send({ products, page, pages: Math.ceil(count / pageSize) });
+  }),
+);
+
+productRouter.get(
+  '/top-products',
+  expressAsyncHandler(async (req, res) => {
+    const topProducts = await Product.find({}).sort({ rating: -1 }).limit(3);
+    res.send(topProducts);
   }),
 );
 

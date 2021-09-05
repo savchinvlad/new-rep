@@ -151,11 +151,15 @@ function App() {
             component={SearchScreen}
             exact></Route>
           <Route
-            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
+            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
             component={SearchScreen}
             exact></Route>
           <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
           <AdminRoute path="/productlist" component={ProductListScreen}></AdminRoute>
+          <AdminRoute
+            path="/productlist/pageNumber/:pageNumber"
+            component={ProductListScreen}
+            exact></AdminRoute>
           <AdminRoute path="/orderlist" component={OrderListScreen}></AdminRoute>
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
           <AdminRoute path="/user/:id/edit" component={UserEditScreen}></AdminRoute>
